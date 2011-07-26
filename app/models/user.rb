@@ -10,7 +10,13 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :name, :email
+  attr_accessor :password
+  attr_accessible :name, :email, :password, :password_confirmation
+
+  #automatically create the virtual password_confirmation attribute
+  validates :password, :presence => true,
+                       :confirmation => true,
+		       :length => { :within => 6..10}
 
   #validate usernames
   validates :name, :presence => true, 
