@@ -17,6 +17,22 @@ describe User do
     @attr = {:name => "Example User", :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar"}
   end
 
+  describe "admin attribute" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "should respond to admin" do
+      @user.should respond_to(:admin)
+    end
+
+    it "should be convertible to an admin" do
+      @user.toggle!(:admin)
+      @user.should be_admin
+    end
+  end
+
   it "should create a new instance given valid attributes" do
     User.create!(@attr)
   end
