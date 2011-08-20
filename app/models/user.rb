@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
 
+  has_many :microposts, :dependent => :destroy
   #automatically create the virtual password_confirmation attribute
   validates :password, :presence => true,
                        :confirmation => true,
