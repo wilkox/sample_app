@@ -50,6 +50,11 @@ class User < ActiveRecord::Base
   		    :format => {:with => email_regex},
 		    :uniqueness => {:case_sensitive => false}
 
+  #microposts feed
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
+
   #private methods
   private
  
