@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
 
+  has_many :microposts, :dependent => :destroy
   #automatically create the virtual password_confirmation attribute
   validates :password, :presence => true,
                        :confirmation => true,
@@ -48,6 +49,11 @@ class User < ActiveRecord::Base
   validates :email, :presence => true,
   		    :format => {:with => email_regex},
 		    :uniqueness => {:case_sensitive => false}
+
+  #microposts feed
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
   #private methods
   private
